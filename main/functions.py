@@ -21,9 +21,7 @@ class Book:
         self.year = year
         self.price = price
 
-def tuple_convert(tuple):
-    str = ' '.join(tuple)
-    return str
+
 
 def option_check(option):
     if option not in [1,2,3,4,5]:
@@ -40,16 +38,14 @@ def register_book():
     year = int(input('ANO DE PUBLICAÇÃO: '))
     price = float(input('PREÇO DO LIVRO: '))
 
-    str_year = str(year)
-    str_price = str(price)
 
     book = Book(code,name,publisher,year,price)
-    book_list = (book.code, book.name, book.publisher, book.str_year, book.str_price)
+    book_list = [book.code, book.name, book.publisher, book.year, book.price]
     print(book_list)
     
-    with open("data.txt",'r+') as f:
-        str = tuple_convert(book_list)
-        f.write(str)
+    with open("data.txt",'a') as f:
+        f.write(str(book_list))    
+        f.write('\n')
 
     print('\n|CADASTRO EFETUADO COM SUCESSO!|\n')
 
