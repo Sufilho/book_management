@@ -42,7 +42,14 @@ def register_book():
                 'Preço': book.price
                 }
     print(book_list)
+    
+    # This is used to mannage a .json file content
+    # with open('data.json') as f:
+    #     data = json.load(f)
+    # for state in data['states']:
+    #     print(state['name'])
 
+    # This was use to write data on a .txt file
     # with open("./data.txt",'a') as f:
     #     f.write(str(book_list))    
     #     f.write('\n')
