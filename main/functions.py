@@ -11,7 +11,6 @@ valores numéricos).
 """
 
 
-import time
 
 class Book:
     def __init__(self, code, name, publisher, year, price):
@@ -43,7 +42,7 @@ def register_book():
     book_list = [book.code, book.name, book.publisher, book.year, book.price]
     print(book_list)
     
-    with open("data.txt",'a') as f:
+    with open("./data.txt",'a') as f:
         f.write(str(book_list))    
         f.write('\n')
 
