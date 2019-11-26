@@ -2,7 +2,7 @@ import sqlite3
 import time
 from functions import Book
 
-conn = sqlite3.connect('data.db')
+conn = sqlite3.connect('App\main\data.db')
 
 c = conn.cursor()
 

@@ -1,64 +1,68 @@
-class Book:
-    def __init__(self, code, name, publisher, year, price):
-        self.code = code
-        self.name = name
-        self.publisher = publisher
-        self.year = year
-        self.price = price
+import sqlite3
+import time
+from prettytable import PrettyTable
+
+div = '-'*50
+
+conn = sqlite3.connect('App\main\data.db')
+c = conn.cursor()
+
+# cadastrar item
+def register_book():
+    print(div,'\nCADASTRO DE LIVROS\n',div)
+    code = input('\nCódigo do livro: ')
+    name = input('Nome do livro: ')
+    publisher = input('Nome da editora: ')
+    year = int(input('Ano de publicação: '))
+    price = float(input('Preço do livro: '))
+        
+    with conn:
+        c.execute("INSERT INTO book VALUES (:code, :name, :publisher, :year, :price)", {'code':code,'name':name,'publisher':publisher,'year':year,'price':price})
+
+# alterar item
+def change_book(code_inp):
+    print('Insira os novos dados:\n')  
+    new_code = input('Código do livro: ')
+    new_name = input('Nome do livro: ')
+    new_publisher = input('Nome da editora: ')
+    new_year = int(input('Ano de pubilação: '))
+    new_price = float(input('Preço do livro: '))
+        
+    with conn:
+        c.execute("""UPDATE book SET code = :newcode, name = :name, publisher= :publisher, year = :year, price = :price 
+        WHERE code = :code""", {'code':code_inp,'newcode':new_code,'name':new_name,'publisher':new_publisher,'year':new_year,'price':new_price})
+# deletar item
+def remove_book(code_inp):
+    with conn:
+        c.execute("DELETE from book WHERE code = :code", {'code':code_inp})
+# localizar item
+def find_book(code_inp):
+    with conn:
+        c.execute("SELECT * FROM book WHERE code = :code",{'code':code_inp})
+        data = c.fetchall()
+        print(data)
+# listar item
+def list_books():
+    with conn:
+        x = PrettyTable(['Código','Nome','Editora','Ano','Preço'])
+        c.execute("SELECT * FROM book")
+        data = c.fetchall()
+        for n in range(len(data)):
+            x.add_row(data[n])
+        tot = 0
+        for book in data:
+            tot += book[4]
+        tot_frmtd = '{:.2f}'.format(tot)
+        x.add_row(["Nº de livros = " + str(len(data)),'','','','Preço Total = ' + tot_frmtd])
+        print(x.get_string(title='LISTA DE LIVROS'))
 
 def option_check(option):
-    if option not in [1,2,3,4,5]:
-        print('[ERRO] - OPÇÃO INVÁLIDA!')
+    if option not in [1,2,3,4,5,6]:
+        print(div,'\n[ERRO] - OPÇÃO INVÁLIDA!\nEscolha uma opção válida!\n')
+        time.sleep(0.5)
         return menu()
 
-
-def register_book():
-    print('\nCADASTRO DE LIVRO\n')
-    code = input('CÓDIGO DO LIVRO: ').upper()
-    name = input('NOME DO LIVRO: ').upper()
-    publisher = input('NOME DA EDITORA: ').upper()
-    year = int(input('ANO DE PUBLICAÇÃO: '))
-    price = float(input('PREÇO DO LIVRO: '))
-
-    # book = Book(code,name,publisher,year,price)
-
-    # book_dict = {
-    #     'code': book.code,
-    #     'name': book.name,
-    #     'publisher': book.publisher,
-    #     'year': book.year,
-    #     'price': book.price
-    # }
-
-    # print(type(book_dict))
-
-    # to_json = json.dumps((book_dict),indent=4)
-    # with open("data.json","a") as f:
-    #     data = f.write(to_json)
-    #     f.write('\n')
-
-    print('\n|CADASTRO EFETUADO COM SUCESSO!|\n')
-
-def change_record():
-    with open('data.json','r') as f:
-        from_json = f.read()
-    print(from_json)
-    data = json.loads(from_json)
-    print(data['code'])
-
-
-# def remove_book():
-
-# def find_book():
-
-# def list_books():
-
 def menu():
-    print('\n[1] - CADASTRAR LIVRO \n[2] - ALTERAR CADSTRO DE LIVRO \n[3] - EXCLUIR CADASTRO DE LIVRO PELO CÓDIGO \n[4] - LOCALIZAR LIVRO PELO CÓDIGO \n[5] - LISTAR ITENS')
-    option = int(input('Digite qual operação você deseja fazer: '))
-    option_check(option)
-    if option == 1:
-        return register_book()
-    elif option == 2:
-        # code = input('Digite o código do livro que você deseja alterar o cadastro: ')
-        change_record()
+    print(div,'\nOpções:\n[1] - CADASTRAR LIVRO \n[2] - ALTERAR CADSTRO DE LIVRO \n[3] - EXCLUIR CADASTRO DE LIVRO PELO CÓDIGO \n[4] - LOCALIZAR LIVRO PELO CÓDIGO \n[5] - LISTAR ITENS\n[6] - SAIR')
+
+list_books()

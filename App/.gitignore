@@ -1,1 +1,3 @@
-main/__pycache__
+App\main\__pycache__
+App\main\sqliteTest.py
+App\main\dbFuntions.py
