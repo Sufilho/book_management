@@ -65,4 +65,3 @@ def option_check(option):
 def menu():
     print(div,'\nOpções:\n[1] - CADASTRAR LIVRO \n[2] - ALTERAR CADSTRO DE LIVRO \n[3] - EXCLUIR CADASTRO DE LIVRO PELO CÓDIGO \n[4] - LOCALIZAR LIVRO PELO CÓDIGO \n[5] - LISTAR ITENS\n[6] - SAIR')
 
-list_books()
