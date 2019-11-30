@@ -4,7 +4,7 @@ from prettytable import PrettyTable
 
 div = '-'*50
 
-conn = sqlite3.connect('App\main\data.db')
+conn = sqlite3.connect('data.db')
 c = conn.cursor()
 
 # cadastrar item
