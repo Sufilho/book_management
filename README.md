@@ -1,8 +1,8 @@
-<h1 align="center">Welcome to Gerenciador de Livros  👋</h1>
+<h1 align="center">Gerenciador de Livros  👋</h1>
 <p>
 </p>
 
-> Pequeno programa para gerenciar dados de livros em uma database usando SQLite3 
+> Pequeno programa para gerenciar dados de livros em uma database usando Python, SQLite3 e PrettyTable.
 
 ## Author
 
