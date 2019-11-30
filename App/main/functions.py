@@ -57,7 +57,7 @@ def list_books():
         x = PrettyTable(['Código','Nome','Editora','Ano','Preço'])
         c.execute("SELECT * FROM book")
         data = c.fetchall()
-        print(data)
+        # print(data)
         for n in range(len(data)):
             x.add_row(data[n])
         tot = 0
