@@ -8,31 +8,36 @@ def App():
             menu()
         else:
             Core()
-        option = int(input('Digite qual operação você deseja fazer: '))
+        option = input('Digite qual operação você deseja fazer: ')
+        def option_check(option):
+            if option not in ['1','2','3','4','5','6']:
+                print('*'*30 +'\n[ERRO] - OPÇÃO INVÁLIDA!\nEscolha uma opção válida!\n'+'*'*30)
+                time.sleep(0.5)
+                Core()
         option_check(option)
-        if option == 1:
+        if option == '1':
             register_book()
             Core()
-        elif option == 2:
+        elif option == '2':
             code = input('Digite o código do livro que você deseja alterar o cadastro: ')
             change_book(code)
             time.sleep(0.5)
             Core()
-        elif option == 3:
+        elif option == '3':
             code = input('Digite o código do livro que você deseja excluir o cadastro: ')
             remove_book(code)
             time.sleep(0.5)
             Core()
-        elif option == 4:
+        elif option == '4':
             code = input('Digite o código do livro que você deseja encontrar o cadastro: ')
             find_book(code)
             time.sleep(0.5)
             Core()
-        elif option == 5:
+        elif option == '5':
             list_books()
             time.sleep(0.5)
             Core()
-        elif option == 6:
+        elif option == '6':
             cont = input('Você deseja sair?[S]-Sim [N]-Não --> ')
             if cont.upper() == 'S':
                 exit

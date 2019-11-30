@@ -1,5 +1,6 @@
 import sqlite3
 import time
+from main import *
 from prettytable import PrettyTable
 
 div = '-'*50
@@ -18,6 +19,7 @@ def register_book():
         
     with conn:
         c.execute("INSERT INTO book VALUES (:code, :name, :publisher, :year, :price)", {'code':code,'name':name,'publisher':publisher,'year':year,'price':price})
+    print('Livro cadastrado!')
 
 # alterar item
 def change_book(code_inp):
@@ -31,10 +33,12 @@ def change_book(code_inp):
     with conn:
         c.execute("""UPDATE book SET code = :newcode, name = :name, publisher= :publisher, year = :year, price = :price 
         WHERE code = :code""", {'code':code_inp,'newcode':new_code,'name':new_name,'publisher':new_publisher,'year':new_year,'price':new_price})
+    print('Cadastro alterado!')
 # deletar item
 def remove_book(code_inp):
     with conn:
         c.execute("DELETE from book WHERE code = :code", {'code':code_inp})
+    print('Livro removido!')
 
 # localizar item
 def find_book(code_inp):
@@ -64,14 +68,9 @@ def list_books():
         for book in data:
             tot += book[4]
         tot_frmtd = '{:.2f}'.format(tot)
+        x.add_row(['-'*10,'-'*10,'-'*10,'-'*10,'-'*10])
         x.add_row(["Nº de livros = " + str(len(data)),'','','','Preço Total = ' + tot_frmtd])
         print(x.get_string(title='LISTA DE LIVROS'))
-
-def option_check(option):
-    if option not in [1,2,3,4,5,6]:
-        print(div,'\n[ERRO] - OPÇÃO INVÁLIDA!\nEscolha uma opção válida!\n')
-        time.sleep(0.5)
-        return menu()
 
 def menu():
     print(div,'\nOpções:\n[1] - CADASTRAR LIVRO \n[2] - ALTERAR CADSTRO DE LIVRO \n[3] - EXCLUIR CADASTRO DE LIVRO PELO CÓDIGO \n[4] - LOCALIZAR LIVRO PELO CÓDIGO \n[5] - LISTAR ITENS\n[6] - SAIR')
