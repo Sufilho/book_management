@@ -35,18 +35,29 @@ def change_book(code_inp):
 def remove_book(code_inp):
     with conn:
         c.execute("DELETE from book WHERE code = :code", {'code':code_inp})
+
 # localizar item
 def find_book(code_inp):
     with conn:
         c.execute("SELECT * FROM book WHERE code = :code",{'code':code_inp})
         data = c.fetchall()
-        print(data)
+        data_book = data[0]
+        data_list = []
+        for eachData in data_book:
+            data_list.append(eachData)
+
+        table = PrettyTable()
+        table.field_names = ['Código','Nome','Editora','Ano','Preço']
+        table.add_row(data_list)
+        print(table)
+
 # listar item
 def list_books():
     with conn:
         x = PrettyTable(['Código','Nome','Editora','Ano','Preço'])
         c.execute("SELECT * FROM book")
         data = c.fetchall()
+        print(data)
         for n in range(len(data)):
             x.add_row(data[n])
         tot = 0

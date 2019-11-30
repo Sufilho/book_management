@@ -6,6 +6,8 @@ def App():
         toggle_menu = input('Digite [1] para vizualizar o menu --> ')
         if toggle_menu == '1':
             menu()
+        else:
+            Core()
         option = int(input('Digite qual operação você deseja fazer: '))
         option_check(option)
         if option == 1:
@@ -31,7 +33,7 @@ def App():
             time.sleep(0.5)
             Core()
         elif option == 6:
-            cont = input('Você realmente deseja sair?[S]-Sim [N]-Não --> ')
+            cont = input('Você deseja sair?[S]-Sim [N]-Não --> ')
             if cont.upper() == 'S':
                 exit
             else:
