@@ -1,17 +1,35 @@
 import sqlite3
 import time
+import os
 from main import *
 from prettytable import PrettyTable
 
 div = '-'*50
 
-conn = sqlite3.connect('data.db')
+conn = sqlite3.connect('App\main\data.db')
 c = conn.cursor()
+# checar se item já está cadastrado
+def check_register(code):
+    with conn:
+        c.execute("SELECT * FROM book")
+        data = c.fetchall()
+    data_code = []
+    for x in range(len(data)):
+        data_code.append(data[x][0])
+    if code in data_code:
+        time.sleep(0.5)
+        print('Já possui um cadastro com esse código!\nCadastre outro código!')
+        time.sleep(0.5)
+        register_book()
+    else:
+        pass
+
 
 # cadastrar item
 def register_book():
-    print(div,'\nCADASTRO DE LIVROS\n',div)
+    print(div,'\nCADASTRO DE LIVROS')
     code = input('\nCódigo do livro: ')
+    check_register(code)
     name = input('Nome do livro: ')
     publisher = input('Nome da editora: ')
     year = int(input('Ano de publicação: '))
@@ -74,4 +92,3 @@ def list_books():
 
 def menu():
     print(div,'\nOpções:\n[1] - CADASTRAR LIVRO \n[2] - ALTERAR CADSTRO DE LIVRO \n[3] - EXCLUIR CADASTRO DE LIVRO PELO CÓDIGO \n[4] - LOCALIZAR LIVRO PELO CÓDIGO \n[5] - LISTAR ITENS\n[6] - SAIR')
-
