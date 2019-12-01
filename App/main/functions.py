@@ -6,7 +6,7 @@ from prettytable import PrettyTable
 
 div = '-'*50
 
-conn = sqlite3.connect('App\main\data.db')
+conn = sqlite3.connect(os.path.abspath('data.db'))
 c = conn.cursor()
 # checar se item já está cadastrado
 def check_register(code):
