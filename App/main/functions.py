@@ -15,43 +15,24 @@ def get_codes():
     for x in range(len(data)):
         data_code.append(data[x][0])
     return data_code
-
-def check_register(code):
-    data_code = get_codes()
-    if code in data_code:
-        time.sleep(0.5)
-        print('Já existe um livro cadastrado com este código!\nUse outro código!')
-        time.sleep(0.5)
-        register_book()
-    else:
-        pass
-
-def check_remove(code):
-    data_code = get_codes()
-    if code not in data_code:
-        print('Não existe livro com este código de cadastro: "{}"!\nUse outro código!'.format(code))
-        remove_book()
-    else:
-        pass
-
-def check_change():
-    pass
-
-
+  
 # cadastrar item
-
 def register_book():
+    data_code = get_codes()    
     print(div,'\nCADASTRO DE LIVROS')
     code = input('\nCódigo do livro: ')
-    check_register(code)
-    name = input('Nome do livro: ')
-    publisher = input('Nome da editora: ')
-    year = int(input('Ano de publicação: '))
-    price = float(input('Preço do livro: '))
-        
-    with conn:
-        c.execute("INSERT INTO book VALUES (:code, :name, :publisher, :year, :price)", {'code':code,'name':name,'publisher':publisher,'year':year,'price':price})
-    print('Livro cadastrado!')
+    if code in data_code:
+        print('Já existe livro com este código de cadastro: "{}"!\nUse outro código!'.format(code))
+        register_book()
+    else:
+        name = input('Nome do livro: ')
+        publisher = input('Nome da editora: ')
+        year = int(input('Ano de publicação: '))
+        price = float(input('Preço do livro: '))
+            
+        with conn:
+            c.execute("INSERT INTO book VALUES (:code, :name, :publisher, :year, :price)", {'code':code,'name':name,'publisher':publisher,'year':year,'price':price})
+        print('Livro cadastrado!')
 
 # alterar item
 def change_book():
@@ -75,10 +56,14 @@ def change_book():
 # deletar item
 def remove_book():
     code = input('Digite o código do livro que você deseja excluir o cadastro: ')
-    check_remove(code)
-    with conn:
-        c.execute("DELETE from book WHERE code = :code", {'code':code})
-    print('Livro removido!')
+    data_code = get_codes()
+    if code not in data_code:
+        print('Não existe livro com este código de cadastro: "{}"!\nUse outro código!'.format(code))
+        remove_book()
+    else:
+        with conn:
+            c.execute("DELETE from book WHERE code = :code", {'code':code})
+        print('Livro removido!')
 
 # localizar item
 def find_book():

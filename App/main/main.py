@@ -39,7 +39,7 @@ def App():
             if cont.upper() == 'S':
                 exit
             else:
-                return Core()
+                Core()
     Core()
         
 if __name__ == "__main__":
