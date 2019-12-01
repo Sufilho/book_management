@@ -19,18 +19,15 @@ def App():
             register_book()
             Core()
         elif option == '2':
-            code = input('Digite o código do livro que você deseja alterar o cadastro: ')
-            change_book(code)
+            change_book()
             time.sleep(0.5)
             Core()
         elif option == '3':
-            code = input('Digite o código do livro que você deseja excluir o cadastro: ')
-            remove_book(code)
+            remove_book()
             time.sleep(0.5)
             Core()
         elif option == '4':
-            code = input('Digite o código do livro que você deseja encontrar o cadastro: ')
-            find_book(code)
+            find_book()
             time.sleep(0.5)
             Core()
         elif option == '5':
