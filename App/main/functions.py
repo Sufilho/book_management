@@ -1,12 +1,10 @@
-import sqlite3
-import time
-import os
-from main import *
+import sqlite3,time,sys,os
 from prettytable import PrettyTable
 
 div = '-'*50
-
-conn = sqlite3.connect('App\main\database\data.db')
+dir = os.path.dirname(__file__)
+filename = os.path.join(dir, 'database')
+conn = sqlite3.connect(filename+'/data.db')
 c = conn.cursor()
 # checar se item já está cadastrado
 def get_codes():
